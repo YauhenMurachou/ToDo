@@ -6,8 +6,6 @@ import App from './components/App/App';
 
 import './index.css';
 
-console.log('my index')
-
 ReactDOM.render(
 
 	<Provider store = {store}>
