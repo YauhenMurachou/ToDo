@@ -23,5 +23,4 @@ function ToDoList({ item, onChange, onClick }) {
 	);
 }
 
-
 export default ToDoList;
