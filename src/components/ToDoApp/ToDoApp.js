@@ -1,25 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useDispatch, useSelector } from "react-redux";
 import { setNewItems, setSearchItems, setText, setSearchText, setInputWarning } from '../../redux/actions/toDoAppActions';
 import ToDoList from '../ToDoList/ToDoList';
 import './ToDoApp.css'
 
-
 export const Context = React.createContext();
 
 function ToDoApp() {
 
-
 	const dispatch = useDispatch();
 	const toDoAppState = useSelector(state => state.toDoAppReducer);
 	let { items, searchItems, text, searchText, inputWarning } = toDoAppState;
-
-	// let [items, setItems] = useState([]);
-	// const [searchItems, setSearchItems] = useState(null);
-	// const [text, setText] = useState('');
-	// const [searchText, setSearchText] = useState('');
-	// const [inputWarning, setInputWarning] = useState('');
 
 	const inputAddEl = useRef(null);
 	const inputSearchEl = useRef(null);
@@ -28,12 +20,8 @@ function ToDoApp() {
 		fetch('https://jsonplaceholder.typicode.com/todos')
 			.then((response) => response.json())
 			.then((result) => dispatch(setNewItems(result.slice(0, 10))))
-			.then((json) => console.log(json))
 	}, []
 	);
-
-
-
 
 	const handleSubmitSearch = (e) => {
 		e.preventDefault();
@@ -48,6 +36,7 @@ function ToDoApp() {
 	}
 
 	const handleChangeSearch = (e) => {
+		console.log('handleChangeSearch', e.target.value)
 		dispatch(setSearchText(e.target.value));
 	}
 
@@ -56,7 +45,7 @@ function ToDoApp() {
 	}
 
 	const removeTask = (id) => {
-		console.log('why dont' )
+		console.log('why dont')
 		let newItems = items.slice();
 		const delId = newItems.findIndex((n) => n.id === id);
 		newItems.splice(delId, 1);
@@ -99,8 +88,6 @@ function ToDoApp() {
 	const warningHiddenUnique = () => {
 		return dispatch(setInputWarning("Внимание! Такая задача уже создана!"))
 	}
-
-
 
 	const changeTask = () => {
 
@@ -149,16 +136,13 @@ function ToDoApp() {
 		if (items) {
 			console.log(copyItemsSort);
 		}
-
-
 	}
 
 	return (
 
-
 		<div className='todo-wrapper'>
 			<h3>Список дел</h3>
-			
+
 			<form onSubmit={handleSubmitSearch}>
 				<label className='label-ToDo' htmlFor='find-todo'>
 					Find task
@@ -190,6 +174,7 @@ function ToDoApp() {
 					Что нужно сделать?
 				</label>
 				<input
+
 					id='new-todo'
 					ref={inputAddEl}
 					onChange={handleChange}
@@ -207,6 +192,5 @@ function ToDoApp() {
 		</div>
 	);
 }
-
 
 export default ToDoApp;
