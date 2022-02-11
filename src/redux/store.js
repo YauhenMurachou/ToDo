@@ -8,5 +8,4 @@ const store = createStore(
 	composeWithDevTools(
 		applyMiddleware()	
 	));
-
 export default store;
