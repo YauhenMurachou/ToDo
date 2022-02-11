@@ -1,0 +1,38 @@
+.todo-wrapper {
+	margin-left: 20px;
+}
+
+form {
+	display: flex;
+	align-items: flex-end;
+}
+
+form label {
+	margin-right: 5px;
+}
+
+form input {
+	margin-right: 5px;
+}
+
+.add-btn {
+	cursor: pointer;
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+.label-ToDo {
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+
+.inputWarning {
+	display: block;
+	font-size: 10px;
+	color: red;
+}
+
+.sort-btn, .addSearch-btn{
+	cursor: pointer;
+}
