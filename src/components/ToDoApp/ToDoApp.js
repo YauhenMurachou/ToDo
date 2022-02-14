@@ -41,6 +41,7 @@ function ToDoApp() {
 	}
 
 	const handleChange = (e) => {
+		console.log('handleChange', )
 		dispatch(setText(e.target.value));
 	}
 
