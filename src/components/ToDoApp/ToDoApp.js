@@ -44,7 +44,7 @@ function ToDoApp() {
 	}
 
 	const handleChange = (e) => {
-		console.log('handleChange', )
+		console.log('handleChange',)
 		dispatch(setText(e.target.value));
 	}
 
@@ -150,26 +150,25 @@ function ToDoApp() {
 	return (
 
 		<div className='todo-wrapper'>
-			<h3>Список дел</h3>
+			<h3 className='todo-title'>Список дел</h3>
 
-			<form onSubmit={handleSubmitSearch}>
-				<label className='label-ToDo' htmlFor='find-todo'>
-					Find task
-				</label>
-				<input
-					id='find-todo'
-					className='addSearch-input'
-					ref={inputSearchEl}
-					onChange={handleChangeSearch}
-					value={searchText}
-				/>
-				<br />
-				<button className='addSearch-btn'>
-					Поиск
-				</button>
+			<form onSubmit={handleSubmitSearch} className='todo-form'>
+				<div className='form-wrapper'>
+					<input
+						id='find-todo'
+						className='addSearch-input'
+						placeholder='Найти задачу'
+						ref={inputSearchEl}
+						onChange={handleChangeSearch}
+						value={searchText}
+					/>
+					<br />
+					<button className='addSearch-btn'>
+						Поиск
+					</button>
+				</div>
 			</form>
-			{/* {renderTasks(items)} */}
-
+		
 			{changeTask()}
 
 			<button
@@ -179,21 +178,21 @@ function ToDoApp() {
 			</button>
 
 			<form onSubmit={handleSubmit}>
-				<label className='label-ToDo' htmlFor='new-todo'>
-					Что нужно сделать?
-				</label>
-				<input
-
-					id='new-todo'
-					ref={inputAddEl}
-					onChange={handleChange}
-					value={text}
-				/>
-				<br />
-				<button className='add-btn'>
-					Добавить #{items.length + 1}
-				</button>
-				<br />
+				<div className='form-wrapper'>
+					<label className='label-ToDo' htmlFor='new-todo'>
+						Что нужно сделать?
+					</label>
+					<input
+						id='new-todo'
+						ref={inputAddEl}
+						onChange={handleChange}
+						value={text}
+					/>
+					<br />
+					<button className='add-btn'>
+						Добавить #{items.length + 1}
+					</button>
+				</div>
 			</form>
 			<div className='inputWarning'>
 				{inputWarning}

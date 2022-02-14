@@ -4,7 +4,9 @@
 	cursor: pointer;
 	color: #fff;
 	border: 1px solid #fff;
-	background-color: #f53308;
+	background-color: rgb(219, 76, 76);
+	border-radius: 3px;
+	padding: 5px;
 }
 .edit-btn{
 	margin-left: 25px;
@@ -15,5 +17,19 @@
 	background-color: #0a8703;
 }
 .li-task {
+	list-style-type: none;
 	font-size: 14px;
+	padding: 5px;
+	border: 2px solid rgb(219, 76, 76);
+	border-radius: 6px;
+	margin: 5px auto 0 auto;
+	max-width: 400px;
+	transition: 0.3s;
 }
+
+.li-task:hover {
+	background-color: rgb(87, 82, 82);
+	border: 2px solid rgb(87, 82, 82);
+	color: white;
+}
+
