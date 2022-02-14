@@ -14,7 +14,7 @@ function ToDoList({ item, onChange, onClick }) {
 				{item.title}
 			</label>
 
-			{item.checked && (
+			{item.completed && (
 				<button className="cancel-btn" onClick={() => onClick()}>
 					cancel
 				</button>
