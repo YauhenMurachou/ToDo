@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
+
 import { useDispatch, useSelector } from "react-redux";
 import { setNewItems, setSearchItems, setText, setSearchText, setInputWarning } from '../../redux/actions/toDoAppActions';
 import ToDoList from '../ToDoList/ToDoList';
 import './ToDoApp.css'
+import EditTask from "../EditTask/editTask";
 
 export const Context = React.createContext();
 
@@ -35,6 +37,7 @@ function ToDoApp() {
 		}
 	}
 
+
 	const handleChangeSearch = (e) => {
 		console.log('handleChangeSearch', e.target.value)
 		dispatch(setSearchText(e.target.value));
@@ -51,6 +54,10 @@ function ToDoApp() {
 		const delId = newItems.findIndex((n) => n.id === id);
 		newItems.splice(delId, 1);
 		dispatch(setNewItems(newItems));
+	}
+	const editTask = () => {
+		console.log('edit task');
+		<EditTask/>
 	}
 
 	const handleCheckbox = (id) => {
@@ -121,7 +128,8 @@ function ToDoApp() {
 					<ToDoList
 						key={item.id}
 						item={item}
-						onClick={() => removeTask(item.id)}
+						onClickDelete={() => removeTask(item.id)}
+						onClickEdit={() => editTask(item.id)}
 						onChange={() => handleCheckbox(item.id)}
 					/>
 				))}
