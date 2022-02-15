@@ -1,16 +1,21 @@
-import React, { useEffect, useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useDispatch, useSelector } from "react-redux";
 import { setNewItems, setSearchItems, setText, setSearchText, setInputWarning } from '../../redux/actions/toDoAppActions';
 import ToDoList from '../ToDoList/ToDoList';
-import './ToDoApp.css'
-import EditTask from "../EditTask/editTask";
+import './ToDoApp.css';
 
 export const Context = React.createContext();
 
 function ToDoApp() {
 
+	const [isCorrect, setIsCorrect] = useState(false);
+	const [textForm, setTextForm] = useState({
+		text: '',
+		correctText: ''
+	});
+
+	const [correctId, setCorrectId] = useState(0);
 	const dispatch = useDispatch();
 	const toDoAppState = useSelector(state => state.toDoAppReducer);
 	let { items, searchItems, text, searchText, inputWarning } = toDoAppState;
@@ -37,28 +42,50 @@ function ToDoApp() {
 		}
 	}
 
-
 	const handleChangeSearch = (e) => {
 		console.log('handleChangeSearch', e.target.value)
 		dispatch(setSearchText(e.target.value));
 	}
 
 	const handleChange = (e) => {
-		console.log('handleChange',)
+		console.log('handleChange---')
 		dispatch(setText(e.target.value));
 	}
 
 	const removeTask = (id) => {
-		console.log('why dont')
 		let newItems = items.slice();
 		const delId = newItems.findIndex((n) => n.id === id);
 		newItems.splice(delId, 1);
 		dispatch(setNewItems(newItems));
 	}
-	const editTask = () => {
-		console.log('edit task');
-		<EditTask/>
+
+	const showEditTask = (id) => {
+		let newItems = items.slice();
+		const editId = newItems.find((n) => n.id === id);
+		const textFormCopy = { ...textForm };
+		textFormCopy.correctText = editId.title;
+		setTextForm(textFormCopy);
+		setCorrectId(editId.id);
+		if (isCorrect === false) {
+			setIsCorrect(!isCorrect);
+		}
 	}
+
+	const correctTask = (id, e) => {
+
+		let newItems = items.slice();
+		const editItem = newItems.find((n) => n.id === correctId);
+		const textFormCopy = { ...textForm };
+		editItem.title = e.target.value;
+		textFormCopy.correctText = e.target.value;
+		setTextForm(textFormCopy);
+		console.log('correctTask', textForm.correctText, e.target.value);
+	}
+
+	// const closeCorrectTask = () => {
+	// 	setIsCorrect(!isCorrect);
+	// 	setErrorMessage({})
+	// }
 
 	const handleCheckbox = (id) => {
 		let newItems = items.slice();
@@ -69,6 +96,10 @@ function ToDoApp() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (isCorrect === true) {
+			setIsCorrect(!isCorrect);
+		}
+
 		let copyText = text.replace(/\s/g, '');
 		let copyItems = items.slice();
 		if (copyItems.some(item => item.title.replace(/\s/g, '') === copyText)) {
@@ -77,7 +108,16 @@ function ToDoApp() {
 		} else if ((text.length < 4) || (searchItems && searchItems.length !== 0) || (text.length === 0)) {
 			warningHiddenShort()
 			return
-		} else {
+		}
+
+		// else if (isCorrect === true) {
+		// 	console.log('handleSubmit---222')
+		// 	if (isCorrect === true) {
+		// 		setIsCorrect(!isCorrect);
+		// 	}
+		// }
+
+		else {
 			const newItem = {
 				title: text,
 				id: Date.now(),
@@ -127,10 +167,16 @@ function ToDoApp() {
 				{arr.map((item) => (
 					<ToDoList
 						key={item.id}
+						id={item.id}
 						item={item}
+						isCorrect={isCorrect}
+						correctId={correctId}
+						textForm={textForm}
 						onClickDelete={() => removeTask(item.id)}
-						onClickEdit={() => editTask(item.id)}
+						onClickEdit={() => showEditTask(item.id)}
 						onChange={() => handleCheckbox(item.id)}
+						correctTask={(item, e) => correctTask(item.id, e)}
+						handleSubmit={(e) => handleSubmit(e)}
 					/>
 				))}
 			</ul>
@@ -168,7 +214,7 @@ function ToDoApp() {
 					</button>
 				</div>
 			</form>
-		
+
 			{changeTask()}
 
 			<button
