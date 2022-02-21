@@ -1,0 +1,68 @@
+.todo-wrapper {
+	margin: 0 auto;
+}
+
+.todo-title {
+	text-align: center;
+	font-size: 24px;
+}
+
+.form-wrapper {
+	margin: 0 auto;
+	display: flex;
+	align-items: flex-end;
+}
+
+form {
+	display: flex;
+	align-items: flex-end;
+}
+
+form label {
+	margin-right: 5px;
+}
+
+form input {
+	margin-right: 5px;
+}
+
+.add-btn {
+	cursor: pointer;
+	font-size: 14px;
+	margin-top: 15px;
+	border-radius: 3px;
+	border: 2px solid rgb(219, 76, 76);
+}
+
+.label-ToDo {
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+.inputWarning {
+	display: block;
+	font-size: 10px;
+	color: rgb(219, 76, 76);
+	text-align: center;
+}
+
+.sort-btn {
+	display: block;
+	margin: 0 auto 15px auto;
+}
+
+.sort-btn:hover,
+.addSearch-btn:hover {
+	background-color: rgb(87, 82, 82);
+	border: 1px solid rgb(87, 82, 82);
+	color: white;
+	border-radius: 2px;
+}
+
+.sort-btn,
+.addSearch-btn {
+	cursor: pointer;
+	border-radius: 2px;
+	border: 1px solid rgb(87, 82, 82);
+	transition: 0.3s;
+}
